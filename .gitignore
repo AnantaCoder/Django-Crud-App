@@ -1,0 +1,93 @@
+# Django .gitignore
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+venv/
+env/
+ENV/
+.env/
+.venv/
+
+# Django ###
+# Local development settings (e.g., local.py, secrets.py)
+/settings/local.py
+/settings/secrets.py
+
+# Database
+*.sqlite3
+*.db
+
+# Media and static files
+/media/
+/staticfiles/
+/static/
+
+# Environments
+.env
+.env.prod
+.env.local
+.env.dev
+.env.staging
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Logs and databases
+*.log
+*.pot
+*.pid
+*.gz
+
+# Node.js (if using frontend tools)
+node_modules/
+npm-debug.log*
+
+# Coverage and testing
+.coverage
+htmlcov/
+.pytest_cache/
+.coverage.*
+*.cover
+*.mo
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Migrations (except __init__.py)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# macOS
+.DS_Store
+
+# Docker
+docker-compose.override.yml

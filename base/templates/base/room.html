@@ -1,0 +1,23 @@
+{% extends 'main.html' %} 
+<!-- this is the first tag of the template -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>room</title>
+</head>
+<body>
+    <!-- {% include 'navbar.html'%} -->
+
+
+{% block content %}
+    <h1>Room Template</h1>
+
+    <a href="{% url 'room' room.id %}">{{ room.name }}</a>
+
+{% endblock %}
+
+
+</body>
+</html>
