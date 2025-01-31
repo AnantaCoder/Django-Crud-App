@@ -116,7 +116,24 @@
 <p>Showing results for: <strong>{{ request.GET.q }}</strong></p>
 {% endif %}
 
+<!-- topics list -->
+
+<div class="browse-topics">
+    <h3>Browse Topics</h3>
+    <a href="{% url 'home' %}">All</a>
+    {% if topics %}
+        {% for topic in topics %}
+            <a href="{% url 'home' %}?q={{ topic.name }}">{{ topic.name }}</a>
+        {% endfor %}
+    {% else %}
+        <p>No topics available.</p>
+    {% endif %}
+</div>
+
 <!-- room lists -->
+<h5>{{room_count}} rooms available </h5>
+
+
 <div class="room-list">
     <a href="{% url 'create-room' %}" class="create-room-link">Create Room</a>
     <div>

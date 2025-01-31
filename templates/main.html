@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Bud</title>
 </head>
+
 <body>
-    <h1 style="color: rgb(13, 105, 75); ">Study Bud</h1>
+    {% include 'navbar.html' %}
+
+    <!-- JavaScript Alert for Messages || ignore the warnings -->
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                alert("{{ message|escapejs }}");
+            {% endfor %}
+        {% endif %}
+    </script>
+
+    <!-- <a href="{% url 'login' %}">Login</a> -->
     {% block content %}
     {% endblock %}
 </body>
+
 </html>
