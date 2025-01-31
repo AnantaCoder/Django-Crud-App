@@ -1,0 +1,20 @@
+{% extends 'main.html'%}
+
+{% block content %}
+
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <!-- Render form fields wrapped in paragraph tags
+        {{ form.as_p }} -->
+        {{form.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<hr>
+<div>
+    <a href="{% url 'home' %}">Go Back to HomePage</a>
+</div>
+
+{% endblock content %}

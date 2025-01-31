@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .confirmation-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .confirmation-form p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .confirmation-form input[type="submit"] {
+        background-color: #ff4444;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .confirmation-form input[type="submit"]:hover {
+        background-color: #cc0000;
+    }
+    .confirmation-form a {
+        margin-left: 10px;
+        color: #333;
+        text-decoration: none;
+    }
+    .confirmation-form a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
+    <div class="confirmation-form">
+        <form method="POST">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{ obj }}"?</p>
+            <a href="{% url 'home' %}">Go Back</a>
+            <input type="submit" value="Confirm" aria-label="Confirm deletion of {{ obj }}">
+        </form>
+    </div>
+    <hr>
+    <div>
+        <a href="{% url 'home' %}">Go Back to HomePage</a>
+    </div>
+{% endblock content %}

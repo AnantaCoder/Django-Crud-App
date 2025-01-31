@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),  # Homepage
-    # path('room/', views.room, name='room'),  # Add this line
-    path('room/<str:pk>/', views.room, name='room'),  # Keep this if you need dynamic rooms
+    path('room/<str:pk>/', views.room, name='room'),  # Dynamic room page
+    path('create_room/', views.createRoom, name='create-room'),  # Create room page
+    path('update_room/<str:pk>/', views.updateRoom, name='update-room'),  # Update room page
+    path('delete_room/<str:pk>/', views.deleteRoom, name='delete-room'),  # Delete room page
 ]

@@ -20,6 +20,9 @@ class Room(models.Model):
     updated = models.DateTimeField(auto_now=True) #every time a snap
     created = models.DateTimeField(auto_now_add=True) # timestamp when we first save the model
     
+    class Meta:
+        ordering = ['-updated','-created'] #ordering in defending order
+    
     def __str__(self):
         return self.name
     

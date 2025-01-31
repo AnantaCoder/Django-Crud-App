@@ -1,29 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-</head>
-<body>
-    {% extends 'main.html' %}
+{% extends 'main.html' %}
 
-    {% block content %}
-        <h1>Room Template</h1>
+{% block content %}
+<style>
+    .room-list {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-        <div>
-            <div>
-                {% for room in rooms %}
+    .room-item {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
 
-                <div>
-                    <span>@{{room.host.username}}</span>
-                    <h4>{{ room.id }} -- <a href="{% url 'room' room.id %}">{{ room.name }}</a></h4>
-                    <small>{{room.topic.name}}</small>
-                    <hr>
-                </div>
-                {% endfor%}
+    .room-item h4 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .room-item small {
+        color: #666;
+    }
+
+    .room-item a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .room-item a:hover {
+        text-decoration: underline;
+    }
+
+    .room-actions {
+        margin-top: 10px;
+    }
+
+    .room-actions a {
+        margin-right: 10px;
+        color: #fff;
+        background-color: #007bff;
+        padding: 5px 10px;
+        border-radius: 3px;
+        text-decoration: none;
+    }
+
+    .room-actions a:hover {
+        background-color: #0056b3;
+    }
+
+    .create-room-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #fff;
+        background-color: #28a745;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .create-room-link:hover {
+        background-color: #218838;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination a {
+        margin: 0 5px;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .pagination a:hover {
+        text-decoration: underline;
+    }
+
+    .search-bar {
+        margin-bottom: 20px;
+    }
+
+    .search-bar input[type="text"] {
+        padding: 8px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .search-bar button {
+        padding: 8px 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .search-bar button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<!-- search functionality  -->
+<div class="search-bar">
+    <form method="GET" action="{% url 'home' %}">
+        <input type="text" name="q" placeholder="Search rooms..." value="{{ request.GET.q }}" />
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+{% if request.GET.q %}
+<p>Showing results for: <strong>{{ request.GET.q }}</strong></p>
+{% endif %}
+
+<!-- room lists -->
+<div class="room-list">
+    <a href="{% url 'create-room' %}" class="create-room-link">Create Room</a>
+    <div>
+        {% if rooms %}
+        {% for room in rooms %}
+        <div class="room-item">
+            <span>@{{ room.host.username }}</span>
+            <h4>{{ room.id }} -- <a href="{% url 'room' room.id %}">{{ room.name }}</a></h4>
+            <small>{{ room.topic.name }}</small>
+            <div class="room-actions">
+                <a href="{% url 'update-room' room.id %}">Edit</a>
+                <a href="{% url 'delete-room' room.id %}"
+                    onclick="return confirm('Are you sure you want to delete this room?');">Delete</a>
             </div>
         </div>
-    {% endblock %}
-</body>
-</html>
+        {% endfor %}
+        {% else %}
+        <p>No rooms available. <a href="{% url 'create-room' %}">Create one now!</a></p>
+        {% endif %}
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if rooms.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ rooms.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ rooms.number }} of {{ rooms.paginator.num_pages }}.
+            </span>
+
+            {% if rooms.has_next %}
+            <a href="?page={{ rooms.next_page_number }}">next</a>
+            <a href="?page={{ rooms.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock content %}
